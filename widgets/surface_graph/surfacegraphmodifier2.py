@@ -243,9 +243,13 @@ class SurfaceGraphModifier(QObject):
         self._axisMaxSliderZ.setMaximum(self._totalStepsZ - 1)
         self._axisMaxSliderZ.setValue(self._totalStepsZ - 1)
 
-        self._flatPlaneSlider.setMinimum(0)#-self._totalStepsX / 2 + 1 if self._rangeMinX < 0 else 1)
-        self._flatPlaneSlider.setMaximum(self._totalStepsX - 1)#self._totalStepsX/2 - 1 if self._rangeMinX < 0 else self._totalStepsX - 1)
-        self._flatPlaneSlider.setValue(float(self._totalStepsX/2))#0 if self._rangeMinX < 0 else float(self._totalStepsX/2))#float(self._totalStepsZ/2))
+        self._flatPlaneSlider.setMinimum(0)
+        if self._selectedAxisForSlicing == 'X':
+            sliderTotalSteps = self._totalStepsX
+        else: 
+            sliderTotalSteps = self._totalStepsZ
+        self._flatPlaneSlider.setMaximum(sliderTotalSteps - 1)
+        self._flatPlaneSlider.setValue(float(sliderTotalSteps/2))
         self._flatPlaneSlider.setPageStep(3)
 
         self._axisMinSliderY.setMinimum(0)
@@ -388,10 +392,10 @@ class SurfaceGraphModifier(QObject):
                 point = series.selectedPoint()
             if self._selectedAxisForSlicing == 'Z':    
                 self._slicingPlaneSelectedValue = self._graph.seriesList()[0].dataProxy().itemAt(point).z()
-                self._flatPlaneSlider.setValue(self._slicingPlaneSelectedValue / self._stepZ)
+                self._flatPlaneSlider.setValue((self._slicingPlaneSelectedValue - self._rangeMinZ) / self._stepZ)
             else :
                 self._slicingPlaneSelectedValue = self._graph.seriesList()[0].dataProxy().itemAt(point).x()
-                self._flatPlaneSlider.setValue(self._slicingPlaneSelectedValue / self._stepX)
+                self._flatPlaneSlider.setValue((self._slicingPlaneSelectedValue - self._rangeMinX) / self._stepX)
 
         elif (type.value > QAbstract3DGraph.ElementSeries.value
               and type.value < QAbstract3DGraph.ElementCustomItem.value):
