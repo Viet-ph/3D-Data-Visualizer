@@ -119,11 +119,17 @@ class SurfaceGraph(QObject):
         vLayout = QVBoxLayout()
         vLayout.setAlignment(Qt.AlignTop)
 
-        vlayoutContainer = QScrollArea()
+        vlayoutContainer = QWidget()
+        vScrollArea = QScrollArea()
+        vScrollArea.verticalScrollBar().setFixedWidth(15)
+        vScrollArea.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        vScrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        vScrollArea.setWidget(vlayoutContainer)
         vlayoutContainer.setFixedWidth(200)
+        vlayoutContainer.setFixedHeight(990)
         vlayoutContainer.setLayout(vLayout)
 
-        hLayout.addWidget(vlayoutContainer)
+        hLayout.addWidget(vScrollArea)
 
         # Create control widgets
 
