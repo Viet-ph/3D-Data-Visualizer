@@ -5,6 +5,7 @@ from itertools import filterfalse
 from math import isnan, nan
 from operator import index
 from statistics import covariance, mean, median, pvariance
+import statistics
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -399,8 +400,9 @@ Load data failed
         try:
             selectedRow = dataTable.currentRow()
             item = dataTable.item(selectedRow, 0)
-            dataToBeDel = AppFunctions.plotDatas[item.text()]
+            dataToBeDel, statisticsData = AppFunctions.plotDatas[item.text()]
             np.delete(dataToBeDel, len(dataToBeDel))
+            statisticsData.clear()
             for layer in AppFunctions.layers:
                 if item.text() in layer:
                     layer.remove(item.text())
