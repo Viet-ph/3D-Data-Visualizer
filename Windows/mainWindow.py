@@ -35,6 +35,7 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         title = "GES HeatMap App"
         description = "GES Data Visualizer"
+        widgets.version.setText(Settings.VERSION)
         # APPLY TEXTS
         self.setWindowTitle(title)
         widgets.titleRightInfo.setText(description)

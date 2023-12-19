@@ -7,6 +7,8 @@ class Settings():
     RIGHT_BOX_WIDTH = 240
     TIME_ANIMATION = 300
 
+    VERSION = "v1.1.0"
+
     # BTNS LEFT AND RIGHT BOX COLORS
     BTN_LEFT_BOX_COLOR = "background-color: rgb(44, 49, 58);"
     BTN_RIGHT_BOX_COLOR = "background-color: #ff79c6;"

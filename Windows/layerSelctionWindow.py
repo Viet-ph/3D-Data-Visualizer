@@ -420,7 +420,7 @@ class LayerSelectionWindow(QMainWindow):
         if (len(self.selectedLayersList) == 0):
             QMessageBox.warning(self, 
                                 "Warning", 
-                                "Select atleast 1 layer to plot.", 
+                                "Select at least 1 layer to plot.", 
                                 QMessageBox.StandardButton.Ok)
             return
         if (len(self.selectedLayersList) == 1 and self.SingleSetected == False):
