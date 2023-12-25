@@ -155,6 +155,7 @@ class DraggableImageForImageContainer(QGraphicsPixmapItem):
         return super().focusInEvent(event)
 
     def handleWhenDrag(self, event: QGraphicsSceneMouseEvent):
+        self.setOpacity(1)
         drag = QDrag(event.widget())
         mimeData = QMimeData()
         # mimeData.setProperty("reference", self)
@@ -163,7 +164,7 @@ class DraggableImageForImageContainer(QGraphicsPixmapItem):
         mimeData.setUrls([url])
         #mimeData.setImageData(self.pixmap().scaledToWidth(250))
         drag.setMimeData(mimeData)
-        
+
         pixmap = QPixmap(80, 80)
 
         painter = QPainter(pixmap)
