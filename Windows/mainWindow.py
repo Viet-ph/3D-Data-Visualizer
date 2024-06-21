@@ -177,3 +177,4 @@ def RunApp():
     app.setWindowIcon(QIcon("GESLogo.ico"))
     window = MainWindow(app)
     sys.exit(app.exec())
+

@@ -13,10 +13,12 @@ def PlotLineGraphMatplotlib(plotWidget: MplGraph):
 #     plotData = PreprocessData()
 #     plotWidget.PlotPointCloud(plotData)
 
+#Testing function
 def PlotPointCloudMatplotlib(plotWidget: MplGraph):
     plotData = PreprocessData()
     plotWidget.Plot3DPointCloud(plotData)
 
+#Testing function
 def PlotScatterGraphQt(graphTable: QTableWidget):
     plotData = PreprocessData()
     scatter = ScatterGraph()

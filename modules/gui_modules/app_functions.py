@@ -5,7 +5,6 @@ from itertools import filterfalse
 from math import isnan, nan
 from operator import index
 from statistics import covariance, mean, median, pvariance
-import statistics
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -64,20 +63,20 @@ def PreprocessData(filePath: str, selectedMode: str, progress_callback: SignalIn
     try:
         for row in range(total_step_z):       
             for column in range(total_step_x):
-                dataLineIndex = row * total_step_x + column
-                if dataLineIndex > len(array_txt) - 1: continue
+                data_line_index = row * total_step_x + column
+                if data_line_index > len(array_txt) - 1: continue
                 modify_z = row * step_size_z       
-                array_txt[dataLineIndex][1] = round(array_txt[0][1] + modify_z, 4)
+                array_txt[data_line_index][1] = round(array_txt[0][1] + modify_z, 4)
 
                 modify_x = column * step_size_x
-                array_txt[dataLineIndex][0] = round(array_txt[0][0] + modify_x, 4)
+                array_txt[data_line_index][0] = round(array_txt[0][0] + modify_x, 4)
 
                 if selectedMode == "1D" and row % 2 == 0 and column < total_step_x / 2:
-                    tempVal = float(array_txt[dataLineIndex][2]) 
-                    array_txt[dataLineIndex][2] = float(array_txt[row * total_step_x + total_step_x - column - 1][2]) 
+                    tempVal = float(array_txt[data_line_index][2]) 
+                    array_txt[data_line_index][2] = float(array_txt[row * total_step_x + total_step_x - column - 1][2]) 
                     array_txt[row * total_step_x + total_step_x - column - 1][2] = tempVal
             
-            percentage = (dataLineIndex * 100) / len(array_txt)
+            percentage = (data_line_index * 100) / len(array_txt)
             if int(percentage) % 20 == 0:
                 progress_callback.emit(percentage, "Preprocessing data rows...")
 
@@ -320,7 +319,7 @@ class AppFunctions():
         if str(absolutePath) != '':
             worker = Worker(PreprocessData, absolutePath, selectedMode)
             worker.signals.result.connect(
-                lambda layerData:( AppFunctions.OnDataPreprocessed(mainWindow, fileName, layerData, selectedMode)))
+                lambda layerData: AppFunctions.OnDataPreprocessed(mainWindow, fileName, layerData, selectedMode))
             worker.signals.progress.connect(
                 lambda percentage, text:
                     AppFunctions.updateProgressBar(mainWindow.ui.progressBar,
@@ -415,6 +414,7 @@ Load data failed
                                     "Data remove error",
                                     f"An exception occurred: {format(error)}'.",
                                     QMessageBox.StandardButton.Ok)
+    
 
     def SurfaceGraphFactory(graphName: str, dataFrames, layerParams, graphImageContainer: QGraphicsView) -> SurfaceGraph:
         #Reset data in previous graph to maintain memory 
